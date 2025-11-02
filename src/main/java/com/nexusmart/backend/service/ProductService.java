@@ -62,16 +62,27 @@ public class ProductService {
     // Create new product
     @Transactional
     public ProductDTO createProduct(CreateProductRequest request) {
-        // Check if SKU already exists
-        if (request.getSku() != null && productRepository.existsBySku(request.getSku())) {
-            throw new RuntimeException("Product with SKU " + request.getSku() + " already exists");
+        try {
+            System.out.println("Creating product: " + request.getName()); // Debug line
+
+            // Check if SKU already exists
+            if (request.getSku() != null && productRepository.existsBySku(request.getSku())) {
+                throw new RuntimeException("Product with SKU " + request.getSku() + " already exists");
+            }
+
+            Product product = convertToEntity(request);
+            System.out.println("Product entity created: " + product); // Debug line
+
+            Product savedProduct = productRepository.save(product);
+            System.out.println("Product saved with ID: " + savedProduct.getId()); // Debug line
+
+            return convertToDTO(savedProduct);
+        } catch (Exception e) {
+            System.err.println("Error creating product: " + e.getMessage());
+            e.printStackTrace();
+            throw e; // Re-throw to see in Postman
         }
-
-        Product product = convertToEntity(request);
-        Product savedProduct = productRepository.save(product);
-        return convertToDTO(savedProduct);
     }
-
     // Update product
     @Transactional
     public ProductDTO updateProduct(Long id, CreateProductRequest request) {
