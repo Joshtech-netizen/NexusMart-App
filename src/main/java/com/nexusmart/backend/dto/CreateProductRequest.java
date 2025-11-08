@@ -21,4 +21,6 @@ public class CreateProductRequest {
     @NotNull(message = "Stock quantity is required")
     @Positive(message = "Stock quantity must be positive")
     private Integer stockQuantity;
+
+    private Boolean active;
 }
