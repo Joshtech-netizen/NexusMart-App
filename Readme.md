@@ -77,3 +77,16 @@ H2/PostgreSQL - Database (dev/prod)
 
 * Git
 
+## API DOCUMENTATION
+
+## ✅ Implemented Features
+
+### Product Management API
+| Method | Endpoint | Description | Status |
+|--------|----------|-------------|---------|
+| GET | `/api/products` | Get all products | ✅ Live |
+| GET | `/api/products/{id}` | Get product by ID | ✅ Live |
+| POST | `/api/products` | Create new product | ✅ Live |
+| PUT | `/api/products/{id}` | Update product | ✅ Live |
+| DELETE | `/api/products/{id}` | Delete product | ✅ Live |
+| GET | `/api/products/search?name={name}` | Search products | ✅ Live |
