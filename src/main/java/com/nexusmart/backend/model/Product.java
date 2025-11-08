@@ -1,10 +1,8 @@
 package com.nexusmart.backend.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import lombok.*;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -18,26 +16,23 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Product name is required")
     @Column(nullable = false)
     private String name;
 
-    @Column(columnDefinition = "TEXT")
     private String description;
 
-    @NotNull(message = "Price is required")
-    @Positive(message = "Price must be positive")
     @Column(nullable = false)
     private Double price;
 
     @Column(unique = true)
-    private String sku; // Stock Keeping Unit
+    private String sku;
 
-    @NotNull(message = "Stock quantity is required")
     @Column(nullable = false)
+    @Builder.Default
     private Integer stockQuantity = 0;
 
     @Column(nullable = false)
+    @Builder.Default
     private Boolean active = true;
 
     @Column(updatable = false)
@@ -45,6 +40,7 @@ public class Product {
 
     private LocalDateTime updatedAt;
 
+    // Simple manual timestamp handling
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
